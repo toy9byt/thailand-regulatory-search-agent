@@ -1,6 +1,6 @@
 """
 RegulatoryCoordinatorAgent: Root Coordinator Agent for Thailand FSI Regulatory Search & Compliance.
-Orchestrates domain sub-agents (BOT, SEC, OIC, PDPA), strategic model routing,
+Orchestrates domain sub-agents (BOT, SEC, OIC, PDPA, AI Governance), strategic model routing,
 guardrails, human-in-the-loop checks, and enterprise GRC synthesis.
 """
 
@@ -9,6 +9,7 @@ from typing import Any
 from .constitution import SYSTEM_CONSTITUTION
 from .guardrails import HumanInTheLoopHook, InputGuardrail, OutputGuardrail
 from .router import ModelRouter
+from .subagents.ai_agent import AiGovernanceAgent
 from .subagents.bot_agent import BotBankingAgent
 from .subagents.grc_agent import GrcSynthesizerAgent
 from .subagents.oic_agent import OicInsuranceAgent
@@ -31,6 +32,7 @@ class RegulatoryCoordinatorAgent:
         self.sec_agent = SecMarketAgent()
         self.oic_agent = OicInsuranceAgent()
         self.pdpa_agent = PdpaComplianceAgent()
+        self.ai_agent = AiGovernanceAgent()
         self.grc_agent = GrcSynthesizerAgent()
 
     def handle_compliance_inquiry(
@@ -92,6 +94,15 @@ class RegulatoryCoordinatorAgent:
             pdpa_res = self.pdpa_agent.process_query(topic=user_prompt)
             if pdpa_res.get("status") == "SUCCESS":
                 collected_obligations.extend(pdpa_res.get("matched_obligations", []))
+
+        # Route to AI Governance Agent
+        if any(w in prompt_lower for w in [
+            "ai", "machine learning", "genai", "llm", "credit scoring", "algorithm",
+            "ปัญญาประดิษฐ์", "model risk", "drift", "explainability", "etda", "aigc"
+        ]):
+            ai_res = self.ai_agent.process_query(topic=user_prompt)
+            if ai_res.get("status") == "SUCCESS":
+                collected_obligations.extend(ai_res.get("matched_obligations", []))
 
         # Default fallback to BOT + PDPA if broad cloud inquiry
         if not collected_obligations:

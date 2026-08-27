@@ -7,7 +7,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-RegulatorType = Literal["BOT", "SEC", "OIC", "PDPC"]
+RegulatorType = Literal["BOT", "SEC", "OIC", "PDPC", "AI_GOVERNANCE", "ALL"]
 EntityType = Literal["PRIVATE_COMMERCIAL_BANK", "FINANCIAL_CONGLOMERATE"]
 LegalCategory = Literal["ACT", "ROYAL_DECREE", "MINISTERIAL_REGULATION", "NOTIFICATION", "CIRCULAR"]
 SeverityLevel = Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]

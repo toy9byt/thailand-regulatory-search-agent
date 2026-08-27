@@ -11,6 +11,7 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 2. **Securities and Exchange Commission (ก.ล.ต. / SEC):** Cyber Resilience Guidelines, Cloud Algorithmic Trading Systems, and Digital Asset Emergency Decree B.E. 2561.
 3. **Office of Insurance Commission (คปภ. / OIC):** Insurance IT Governance Notification B.E. 2563, Digital Policy Issuance, and Bancassurance electronic sales consent standards.
 4. **Personal Data Protection Commission (สคส. / PDPC):** Personal Data Protection Act (PDPA B.E. 2562) Section 28-29 Cross-Border Cloud Transfers, 72-Hour Data Breach Notifications, and DPO mandates.
+5. **AI Governance & Ethical AI (ธปท. / ETDA AIGC / สคส.):** Bank of Thailand AI/ML Principles (Explainability, Anti-Bias in Credit Scoring, Model Risk Management), ETDA Thailand AI Governance Clinic (AIGC) Guidelines, and PDPA Automated Decision-Making (ADM) safeguards.
 
 > [!IMPORTANT]
 > **Scope Restriction — Thai Private Commercial Banks Only (Not SFIs):**
@@ -116,6 +117,7 @@ flowchart TD
 | **Capital Markets & Securities** | **Securities and Exchange Commission (SEC / ก.ล.ต.)** | • Cyber Resilience Guidelines<br>• Notification KorThor. 19/2561<br>• Digital Asset Business Decree B.E. 2561 | Algorithmic trading hosting, wealth management microservices, digital asset custody (cold storage segregation). |
 | **Insurance & InsurTech** | **Office of Insurance Commission (OIC / คปภ.)** | • IT Governance Notification B.E. 2563<br>• Digital Bancassurance Sales Guidelines | Electronic policy issuance consent, tablet-based branch sales compliance, digital customer verification. |
 | **Financial Data Privacy** | **Personal Data Protection Commission (PDPC / สคส.)** | • Personal Data Protection Act (PDPA B.E. 2562)<br>• Subordinate Notifications on Sec 28–29 | Cross-border financial cloud data transfers, adequate protection assessments, 72-hour breach escalation protocols. |
+| **AI Governance & Ethical AI** | **Bank of Thailand (BOT), ETDA & PDPC** | • BOT Guidelines on AI/ML in Financial Services<br>• ETDA AI Governance Guidelines for Executives (AIGC)<br>• PDPA Sec 30 (Automated Decision-Making) | Algorithmic credit underwriting explainability (SHAP/feature attribution), anti-bias testing in alternative data scoring, model risk management (MRM) drift controls, consumer AI disclosure, and right-to-human-review objection workflows. |
 
 ---
 
@@ -134,6 +136,7 @@ flowchart TD
 │   ├── secrets.py               # Secret Manager Client Wrapper
 │   ├── subagents/
 │   │   ├── __init__.py
+│   │   ├── ai_agent.py          # AI Governance Specialist (BOT AI/ML, ETDA AIGC)
 │   │   ├── bot_agent.py         # Bank of Thailand (BOT) Specialist
 │   │   ├── grc_agent.py         # Enterprise GRC Synthesizer Sub-Agent
 │   │   ├── oic_agent.py         # Office of Insurance Commission (OIC) Specialist
@@ -141,6 +144,7 @@ flowchart TD
 │   │   └── sec_agent.py         # Securities & Exchange Commission (SEC) Specialist
 │   └── tools/
 │       ├── __init__.py
+│       ├── ai_governance_tools.py # AI Governance, Explainability & Model Drift Tools
 │       ├── bot_tools.py         # BOT IT Risk (สนส. 12/2563) & Payments Tools
 │       ├── error_handler.py     # Guided Error Handling & Recovery Instructors
 │       ├── grc_tools.py         # CO-REG-TH Control Synthesis Tools
