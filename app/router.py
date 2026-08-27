@@ -1,5 +1,5 @@
 """
-Strategic Model Router for Thailand Private Banking Regulatory Agent.
+Strategic Model Router for Thailand FSI Regulatory Search & Compliance Agent.
 Implements Tiered Thinking Tokenomics using Gemini 3.7 Flash (Fast Mode vs Extended Thinking)
 with Gemini 3.1 Pro fallback for advanced planning and statutory synthesis.
 """

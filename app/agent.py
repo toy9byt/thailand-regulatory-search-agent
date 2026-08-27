@@ -1,5 +1,5 @@
 """
-RegulatoryCoordinatorAgent: Root Coordinator Agent for Thailand Private Banking Regulatory Search.
+RegulatoryCoordinatorAgent: Root Coordinator Agent for Thailand FSI Regulatory Search & Compliance.
 Orchestrates domain sub-agents (BOT, SEC, OIC, PDPA), strategic model routing,
 guardrails, human-in-the-loop checks, and enterprise GRC synthesis.
 """

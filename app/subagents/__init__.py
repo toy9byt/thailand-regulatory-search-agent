@@ -1,5 +1,5 @@
 """
-Domain-specific sub-agents for Thailand Private Banking Regulatory Compliance.
+Domain-specific sub-agents for Thailand FSI Regulatory Search & Compliance.
 Specialized agents for BOT, SEC, OIC, PDPA, and Enterprise GRC Synthesis.
 """
 

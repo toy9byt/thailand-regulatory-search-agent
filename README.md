@@ -1,4 +1,4 @@
-# Thailand Private Banking Regulatory Search & Compliance Agent
+# Thailand FSI Regulatory Search & Compliance Agent
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
@@ -19,7 +19,7 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 ## 1. System Architecture
 
 <p align="center">
-  <img src="docs/images/system_architecture.png" alt="Thailand Private Banking Regulatory Search Agent End-to-End Architecture" width="100%" />
+  <img src="docs/images/system_architecture.png" alt="Thailand FSI Regulatory Search & Compliance Agent End-to-End Architecture" width="100%" />
 </p>
 
 <details>

@@ -1,5 +1,5 @@
 """
-Automated Evaluation Harness for Thailand Private Banking Regulatory Agent.
+Automated Evaluation Harness for Thailand FSI Regulatory Search & Compliance Agent.
 Executes test cases from eval_dataset.jsonl, verifies HITL gates, and measures compliance accuracy.
 """
 
