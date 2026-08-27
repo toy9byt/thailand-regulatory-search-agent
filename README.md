@@ -121,7 +121,63 @@ flowchart TD
 
 ---
 
-## 3. Project Structure
+---
+
+---
+
+## 3. Critical User Journeys (CUJs)
+
+### 🔹 CUJ 1: Core Banking Cloud Migration & Right-to-Audit Contract Addendum
+* **Primary Persona:** Lead Cloud Architect & Head of IT Risk Compliance
+* **Business Trigger:** The bank is migrating its core payment gateway and transaction ledgers to Public Cloud (Google Cloud / AWS). The CSP's standard master services agreement (MSA) does not explicitly grant statutory inspection rights to regulatory examiners.
+* **Agentic Multi-Agent Execution Flow:**
+  1. **Ingress Sanitization:** The compliance officer submits the proposed cloud architecture and CSP contract clause. The **Dual-Boundary PII Scrubber** immediately sanitizes internal server hostnames and internal administrator emails.
+  2. **Security & Scope Guardrail:** `InputGuardrail` validates that the query pertains strictly to a private commercial bank (not an SFI or public procurement).
+  3. **Domain Agent Dispatch:** `RegulatoryCoordinatorAgent` dispatches the inquiry to `BotBankingAgent`.
+  4. **Statutory Grounding:** The tool `search_thai_fsi_regulatory_circulars` matches `OBL-BOT-122563-02` (*BOT Notification SorNorSor. 12/2563 Clause 5.2.2: Right to Audit*).
+  5. **Enterprise GRC Synthesis:** `GrcSynthesizerAgent` compiles harmonized control `CO-REG-TH-FSI-001` and produces an enforceable bilateral contract addendum clause granting Bank of Thailand examiners on-site and remote inspection access with a 30-day notice window.
+* **Deterministic Deliverable:** Production-ready bilateral CSP contract redline, board risk assessment document, and BOT regulatory inspection evidence checklist.
+
+---
+
+### 🔹 CUJ 2: Generative AI & Alternative Credit Scoring Governance
+* **Primary Persona:** Chief Risk Officer (CRO) & Head of AI / Data Analytics
+* **Business Trigger:** The bank's digital consumer lending unit intends to deploy an automated credit scoring ML model utilizing alternative non-traditional data (utility & telco usage), paired with a Generative AI conversational assistant for applicant interactions.
+* **Agentic Multi-Agent Execution Flow:**
+  1. **Ingress Sanitization:** Officer asks: *"What governance, anti-bias, and explainability controls must we satisfy under Bank of Thailand and ETDA standards before launching AI digital lending?"*
+  2. **Strategic Tiered Routing:** `ModelRouter` selects **Gemini 3.7 Flash Extended Thinking (budget: 4096)** for deep statutory synthesis across multiple conflicting authorities.
+  3. **Multi-Agent Collaboration:** Dispatches in parallel to `AiGovernanceAgent` and `PdpaComplianceAgent`.
+  4. **Multi-Regulator Grounding:** Identifies BOT AI/ML Explainability & Transparency mandates (`OBL-BOT-AI-01`), BOT Fairness & Anti-Bias rules (`OBL-BOT-AI-02`), ETDA AIGC Executive Guidelines (`OBL-ETDA-AIGC-01`), and PDPA Section 30 Automated Decision-Making (`OBL-PDPC-AI-01`).
+  5. **Enterprise GRC Synthesis:** Synthesizes `CO-REG-TH-FSI-005`, generating requirements for SHAP feature attribution in adverse action notices, demographic parity audits, automated drift triggers (PSI > 0.25), and an objection workflow allowing denied borrowers to demand manual human underwriter review.
+* **Deterministic Deliverable:** End-to-end Enterprise AI Model Governance Policy, Model Risk Management (MRM) validation charter, and adverse action notice templates.
+
+---
+
+### 🔹 CUJ 3: Cross-Border Cloud Disaster Recovery (DR) & Financial PII Transfer
+* **Primary Persona:** Data Protection Officer (DPO) & Chief Information Security Officer (CISO)
+* **Business Trigger:** The bank is architecting an active-passive disaster recovery failover in a secondary cloud region located outside Thailand (Singapore / Japan). Customer banking transaction histories and KYC biometric vectors will replicate continuously across borders.
+* **Agentic Multi-Agent Execution Flow:**
+  1. **Ingress Sanitization:** DPO inputs proposed cross-region replication topology. The PII Scrubber redacts sample customer identifiers.
+  2. **Domain Collaboration:** `RegulatoryCoordinatorAgent` dispatches to `BotBankingAgent` and `PdpaComplianceAgent`.
+  3. **Statutory Reconciliation:** Reconciles PDPA Sections 28–29 (*Adequacy of Foreign Data Protection, Standard Contractual Clauses, Binding Corporate Rules*) with BOT SorNorSor. 12/2563 Clause 5.2.3 (*Cloud Exit Strategy and Business Continuity Planning*).
+  4. **Enterprise GRC Synthesis:** Compiles `CO-REG-TH-FSI-003`, mandating Customer-Managed Encryption Keys (CMEK), bilateral Standard Contractual Clauses (SCCs), and semi-annual failover drills with a validated 4-hour Recovery Time Objective (RTO).
+* **Deterministic Deliverable:** Formal Cross-Border Transfer Impact Assessment (TIA), bilateral Data Processing Addendum (DPA), and BCP supervisory inspection pack.
+
+---
+
+### 🔹 CUJ 4: Digital Bancassurance Tablet Sales & Electronic Consent
+* **Primary Persona:** Head of Bancassurance & Retail Operations Director
+* **Business Trigger:** Bank branch relationship managers recommend and sell insurance policies to retail banking customers via branch tablets using paperless electronic signatures.
+* **Agentic Multi-Agent Execution Flow:**
+  1. **Ingress Sanitization:** Branch operations lead inquires on regulatory requirements for paperless insurance sales at physical branches.
+  2. **Domain Collaboration:** Dispatched to `OicInsuranceAgent` and `PdpaComplianceAgent`.
+  3. **Statutory Grounding:** Cites OIC IT Governance Notification B.E. 2563 (*Clause 6: Electronic Insurance Policy Distribution Standards*) and PDPA Section 19 (*Explicit Unbundled Consent*).
+  4. **Enterprise GRC Synthesis:** Produces `CO-REG-TH-FSI-004` establishing technical controls: biometric e-KYC liveness detection, cryptographic timestamping, strictly unbundled consent checkboxes (separating marketing from underwriting), and automated PDF policy delivery to customer email.
+* **Deterministic Deliverable:** Branch electronic sales UX flow compliance specification, audit trail logging protocol, and OIC supervisory inspection pack.
+
+---
+
+## 4. Project Structure
 
 ```
 .
@@ -173,7 +229,7 @@ flowchart TD
 
 ---
 
-## 4. Quickstart Guide
+## 5. Quickstart Guide
 
 ### Prerequisites
 - Python 3.10+
@@ -215,7 +271,7 @@ uv run python eval/eval_runner.py
 
 ---
 
-## 5. Security, Confidentiality & Compliance Guardrails
+## 6. Security, Confidentiality & Compliance Guardrails
 
 - **Zero Hardcoded Secrets:** All credentials are dynamically resolved via Google Cloud Secret Manager or environment variables. No secrets are stored in version control.
 - **Automated PII Scrubbing:** All input payloads and agent traces undergo automated regex and DLP sanitization to mask 13-digit Thai National Identification numbers, banking accounts, and sensitive payment data.
@@ -223,5 +279,5 @@ uv run python eval/eval_runner.py
 - **Statutory Grounding Mandate:** Enforces 100% citation grounding referencing enacted gazette notifications (`[Grounded: ...]`) and excludes unverified media press releases.
 - **Human-in-the-Loop (HITL) Gate:** Intercepts high-stakes actions (such as regulatory breach notifications or policy amendments) and requires explicit officer sign-off before dispatch.
 
-## 6. License
+## 7. License
 Licensed under the [Apache License, Version 2.0](LICENSE).
