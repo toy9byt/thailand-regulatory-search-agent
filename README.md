@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Architecture-Google_ADK_Multi--Agent-green)](https://github.com/google/adk-python)
-[![Evaluation Score](https://img.shields.io/badge/AgentOps_Matrix-95%2F95_Points-brightgreen)](https://github.com/google/adk-samples)
 
 An enterprise-grade, autonomous multi-agent regulatory intelligence and compliance orchestration system tailored strictly for **Private Commercial Banks and Financial Conglomerates in Thailand**.
 
@@ -92,36 +91,7 @@ flowchart TD
 
 ---
 
-## 2. AgentOps Code Review Matrix: 95-Point Scorecard
-
-This repository is strictly engineered to achieve a perfect **95/95 points** against the automated AgentOps Code Review Matrix:
-
-| Category | Criterion | Points | Implementation Evidence & Code Location |
-| :--- | :--- | :---: | :--- |
-| **1. Tool & Interface Design** | **Comprehensive Tool Docstrings** | 5 | `app/tools/*.py` — All tool functions feature comprehensive Google-style docstrings documenting Purpose, Args, Returns, and Exceptions. |
-| | **Descriptive Naming** | 5 | `app/tools/*.py` — Domain-specific names (`search_thai_fsi_regulatory_circulars`, `extract_fsi_cloud_outsourcing_mandates`, `synthesize_enterprise_grc_controls`). |
-| | **Explicit JSON Schemas** | 5 | `app/tools/schemas.py` — Strict Pydantic v2 `BaseModel` schemas validating tool inputs, constraints, and typed outputs. |
-| | **Guided Error Handling** | 5 | `app/tools/error_handler.py` — Structured JSON error returns providing actionable recovery instructions back to the LLM. |
-| **2. Context & Memory** | **Robust System Instructions** | 5 | `app/constitution.py` — Senior Regulatory Counsel constitution enforcing statutory hierarchy and the Press Release Exclusion Rule. |
-| | **History Compaction** | 5 | `app/memory.py` — Sliding-window token truncation and contextual compaction summarizing older conversation turns. |
-| | **Persistent Session State** | 5 | `app/memory.py` — SQLite/Cloud SQL persistent session storage retaining audit tags and regulatory state across sessions. |
-| | **Async Memory Operations** | 5 | `app/memory.py` — Non-blocking background worker (`asyncio.create_task`) consolidating historical compliance queries into long-term memory. |
-| **3. Orchestration & Logic** | **Multi-Agent Patterns** | 5 | `app/agent.py`, `app/subagents/*` — Coordinator-Worker multi-agent architecture with specialized sub-agents for BOT, SEC, OIC, PDPA, and GRC synthesis. |
-| | **Strategic Model Routing** | 5 | `app/router.py` — Tiered model routing: Fast Mode for sub-second triage/extraction and Extended Thinking Mode / Pro for deep statutory synthesis. |
-| | **Guardrails & Policy Plugins** | 5 | `app/guardrails.py` — Pre-execution prompt injection defense, SFI scope filters, and post-execution 100% grounding verifiers. |
-| | **Human-in-the-Loop Hooks** | 5 | `app/guardrails.py` — Explicit pause/confirmation intercept before executing high-stakes regulatory actions (Sev-1 incident filing, formal policy amendments). |
-| **4. Observability & Tracing** | **Structured JSON Logging** | 5 | `app/observability.py` — Production structured JSON logger capturing timestamp, trace_id, agent_name, regulator, and latency metadata. |
-| | **Intent vs. Outcome Capture** | 5 | `app/observability.py` — Explicit dual logging: `INTENT_EMITTED` (before tool execution) and `OUTCOME_RECORDED` (after tool execution). |
-| | **Distributed Tracing** | 5 | `app/observability.py` — OpenTelemetry SDK instrumentation with W3C `traceparent` context propagation linking spans from user query to tool output. |
-| | **PII Redaction** | 5 | `app/observability.py` — Active regex & DLP scrubber masking Thai National IDs (13 digits), bank accounts, credit card numbers, and API keys. |
-| **5. Infrastructure & CI/CD** | **Automated Evaluation Suites** | 5 | `eval/eval_dataset.jsonl`, `eval/eval_runner.py` — Golden benchmark dataset with positive and negative test cases verifying regression-free compliance. |
-| | **Infrastructure as Code** | 5 | `infra/terraform/*` — Terraform modules provisioning Cloud Run / Agent Runtime, Secret Manager, and Cloud Trace. |
-| | **Secure Secret Management** | 5 | `app/secrets.py`, `.env.example` — Google Cloud Secret Manager client wrapper; strictly zero hardcoded secrets in repository. |
-| **Total** | | **95** | |
-
----
-
-## 3. Project Structure
+## 2. Project Structure
 
 ```
 .
@@ -171,7 +141,7 @@ This repository is strictly engineered to achieve a perfect **95/95 points** aga
 
 ---
 
-## 4. Quickstart Guide
+## 3. Quickstart Guide
 
 ### Prerequisites
 - Python 3.10+
@@ -181,7 +151,7 @@ This repository is strictly engineered to achieve a perfect **95/95 points** aga
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/thailand-regulatory-search-agent.git
+git clone https://github.com/toy9byt/thailand-regulatory-search-agent.git
 cd thailand-regulatory-search-agent
 
 # Install dependencies using uv
@@ -213,11 +183,11 @@ uv run python eval/eval_runner.py
 
 ---
 
-## 5. Security, Confidentiality & Compliance Guardrails
+## 4. Security, Confidentiality & Compliance Guardrails
 
 - **Zero Hardcoded Secrets:** All credentials are dynamically resolved via Google Cloud Secret Manager or environment variables. No secrets are stored in version control.
 - **Automated PII Scrubbing:** All input payloads and agent traces undergo automated regex and DLP sanitization to mask 13-digit Thai National Identification numbers, banking accounts, and sensitive payment data.
 - **Strict Private Banking Scope:** Automated filters identify and reject government procurement statutes and state-owned bank directives, guiding users exclusively to private commercial banking regulations.
 
-## 6. License
+## 5. License
 Licensed under the [Apache License, Version 2.0](LICENSE).

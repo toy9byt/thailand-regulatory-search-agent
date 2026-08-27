@@ -1,4 +1,4 @@
-name: CI & AgentOps Evaluation Pipeline
+name: CI & Regulatory Evaluation Pipeline
 
 on:
   push:

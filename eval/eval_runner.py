@@ -1,6 +1,6 @@
 """
 Automated Evaluation Harness for Thailand Private Banking Regulatory Agent.
-Executes test cases from eval_dataset.jsonl, verifies HITL gates, and measures compliance with the AgentOps Matrix.
+Executes test cases from eval_dataset.jsonl, verifies HITL gates, and measures compliance accuracy.
 """
 
 import json

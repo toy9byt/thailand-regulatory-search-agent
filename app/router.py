@@ -1,7 +1,7 @@
 """
 Strategic Model Router for Thailand Private Banking Regulatory Agent.
 Implements Tiered Thinking Tokenomics using Gemini 3.7 Flash (Fast Mode vs Extended Thinking)
-with Gemini 3.1 Pro fallback to guarantee 100% compliance with AgentOps Matrix Category 3.2.
+with Gemini 3.1 Pro fallback for advanced planning and statutory synthesis.
 """
 
 import os
