@@ -4,17 +4,17 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Architecture-Google_ADK_Multi--Agent-green)](https://github.com/google/adk-python)
 
-An enterprise-grade, autonomous multi-agent regulatory intelligence and compliance orchestration system tailored strictly for **Private Commercial Banks and Financial Conglomerates in Thailand**.
+An enterprise-grade, autonomous multi-agent regulatory intelligence and compliance orchestration system engineered specifically for the **Financial Services Industry (FSI) in Thailand**.
 
 The agent automates statutory discovery, cross-regulator mandate extraction, and enterprise GRC control formulation across the four primary Thai financial authorities:
 1. **Bank of Thailand (ธปท. / BOT):** Notification SorNorSor. 12/2563 (IT Risk & Cloud Outsourcing), Payment Systems Act B.E. 2560, and Financial Institutions Businesses Act B.E. 2551.
-2. **Securities and Exchange Commission (ก.ล.ต. / SEC):** Cyber Resilience Guidelines and Digital Asset Business Emergency Decree.
-3. **Office of Insurance Commission (คปภ. / OIC):** Insurance IT Governance Notification B.E. 2563 and Bancassurance electronic sales standards.
-4. **Personal Data Protection Commission (สคส. / PDPC):** Personal Data Protection Act (PDPA B.E. 2562) Section 28-29 Cross-Border Cloud Transfers, DPO mandates, and financial PII safeguards.
+2. **Securities and Exchange Commission (ก.ล.ต. / SEC):** Cyber Resilience Guidelines, Cloud Algorithmic Trading Systems, and Digital Asset Emergency Decree B.E. 2561.
+3. **Office of Insurance Commission (คปภ. / OIC):** Insurance IT Governance Notification B.E. 2563, Digital Policy Issuance, and Bancassurance electronic sales consent standards.
+4. **Personal Data Protection Commission (สคส. / PDPC):** Personal Data Protection Act (PDPA B.E. 2562) Section 28-29 Cross-Border Cloud Transfers, 72-Hour Data Breach Notifications, and DPO mandates.
 
 > [!IMPORTANT]
 > **Scope Restriction — Thai Private Commercial Banks Only (Not SFIs):**
-> This agent is strictly limited to **Thai Private Commercial Banks** and their consolidated financial business groups governed under the *Financial Institutions Businesses Act B.E. 2551*.
+> Within the banking sector, this agent is strictly limited to **Thai Private Commercial Banks** and their consolidated financial business groups governed under the *Financial Institutions Businesses Act B.E. 2551*.
 > 
 > **It explicitly excludes and rejects:**
 > - **State-Owned Enterprise Banks / Specialized Financial Institutions (SFIs):** Government Savings Bank (ธนาคารออมสิน), Bank for Agriculture and Agricultural Cooperatives (BAAC / ธ.ก.ส.), Government Housing Bank (GH Bank / ธอส.), SME D Bank, EXIM Thailand, and Islamic Bank of Thailand.
@@ -37,7 +37,7 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 ```mermaid
 flowchart TD
     subgraph L1["1. Ingress & Security Guardrails Layer"]
-        User["Compliance Officer / Cloud Architect"]
+        User["FSI Compliance Officer / Cloud Architect"]
         PII["PII Redaction Scrubber (Thai ID, Accounts, Cards)"]
         IG["Input Guardrail (Prompt Injection & SFI Rejection)"]
         User --> PII --> IG
@@ -54,9 +54,9 @@ flowchart TD
         Router -.-> Pro
 
         subgraph SubAgents["Specialized Domain Sub-Agents"]
-            BotAgent["BotBankingAgent (BOT สนส. 12/2563, Payments)"]
-            SecAgent["SecMarketAgent (SEC Cyber Resilience)"]
-            OicAgent["OicInsuranceAgent (OIC IT Governance, InsurTech)"]
+            BotAgent["BotBankingAgent (BOT SorNorSor. 12/2563, Payments)"]
+            SecAgent["SecMarketAgent (SEC Cyber Resilience, Trading)"]
+            OicAgent["OicInsuranceAgent (OIC IT Governance, Bancassurance)"]
             PdpaAgent["PdpaComplianceAgent (PDPA Cross-Border PII, DPO)"]
             GrcAgent["GrcSynthesizerAgent (CO-REG-TH Matrix & Redlines)"]
         end
@@ -71,10 +71,10 @@ flowchart TD
     subgraph L3["3. Pydantic v2 Tools & Statutory Grounding"]
         Tools["Domain Tools with Guided Error Recovery"]
         BotAgent & SecAgent & OicAgent & PdpaAgent --> Tools
-        Repo[("Thai Private Banking Statutory Store")]
+        Repo[("Thai FSI Statutory Knowledge Store")]
         SFIFilter{"SFI / State Bank Filter"}
         Tools --> SFIFilter
-        SFIFilter -- "Private Bank Mandate" --> Repo
+        SFIFilter -- "Private FSI Mandate" --> Repo
         SFIFilter -- "SFI / Gov Rule" --> Drop["Excluded Item Audit (EXCLUDED)"]
     end
 
@@ -108,7 +108,18 @@ flowchart TD
 
 ---
 
-## 2. Project Structure
+## 2. Key FSI Use Cases & Regulatory Coverage
+
+| FSI Sector | Regulatory Authority | Primary Statutes & Standards | In-Scope Workloads & Use Cases |
+| :--- | :--- | :--- | :--- |
+| **Private Commercial Banking** | **Bank of Thailand (BOT / ธปท.)** | • Notification SorNorSor. 12/2563<br>• Financial Institutions Businesses Act B.E. 2551<br>• Payment Systems Act B.E. 2560 | Core banking cloud migrations, right-to-audit clauses, CSP exit strategies, multi-cloud resiliency, sub-contracting governance. |
+| **Capital Markets & Securities** | **Securities and Exchange Commission (SEC / ก.ล.ต.)** | • Cyber Resilience Guidelines<br>• Notification KorThor. 19/2561<br>• Digital Asset Business Decree B.E. 2561 | Algorithmic trading hosting, wealth management microservices, digital asset custody (cold storage segregation). |
+| **Insurance & InsurTech** | **Office of Insurance Commission (OIC / คปภ.)** | • IT Governance Notification B.E. 2563<br>• Digital Bancassurance Sales Guidelines | Electronic policy issuance consent, tablet-based branch sales compliance, digital customer verification. |
+| **Financial Data Privacy** | **Personal Data Protection Commission (PDPC / สคส.)** | • Personal Data Protection Act (PDPA B.E. 2562)<br>• Subordinate Notifications on Sec 28–29 | Cross-border financial cloud data transfers, adequate protection assessments, 72-hour breach escalation protocols. |
+
+---
+
+## 3. Project Structure
 
 ```
 .
@@ -158,7 +169,7 @@ flowchart TD
 
 ---
 
-## 3. Quickstart Guide
+## 4. Quickstart Guide
 
 ### Prerequisites
 - Python 3.10+
@@ -200,11 +211,13 @@ uv run python eval/eval_runner.py
 
 ---
 
-## 4. Security, Confidentiality & Compliance Guardrails
+## 5. Security, Confidentiality & Compliance Guardrails
 
 - **Zero Hardcoded Secrets:** All credentials are dynamically resolved via Google Cloud Secret Manager or environment variables. No secrets are stored in version control.
 - **Automated PII Scrubbing:** All input payloads and agent traces undergo automated regex and DLP sanitization to mask 13-digit Thai National Identification numbers, banking accounts, and sensitive payment data.
 - **Strict Private Banking Scope:** Automated filters identify and reject government procurement statutes and state-owned bank directives, guiding users exclusively to private commercial banking regulations.
+- **Statutory Grounding Mandate:** Enforces 100% citation grounding referencing enacted gazette notifications (`[Grounded: ...]`) and excludes unverified media press releases.
+- **Human-in-the-Loop (HITL) Gate:** Intercepts high-stakes actions (such as regulatory breach notifications or policy amendments) and requires explicit officer sign-off before dispatch.
 
-## 5. License
+## 6. License
 Licensed under the [Apache License, Version 2.0](LICENSE).
