@@ -12,7 +12,16 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 3. **Office of Insurance Commission (คปภ. / OIC):** Insurance IT Governance Notification B.E. 2563 and Bancassurance electronic sales standards.
 4. **Personal Data Protection Commission (สคส. / PDPC):** Personal Data Protection Act (PDPA B.E. 2562) Section 28-29 Cross-Border Cloud Transfers, DPO mandates, and financial PII safeguards.
 
-> **Strict Scope Boundary:** Strictly scopes in private commercial banking entities and their consolidated financial business groups. Firmly excludes government procurement statutes (พ.ร.บ. การจัดซื้อจัดจ้างภาครัฐ พ.ศ. 2560), State Enterprise Policy Office (SEPO / สคร.) rules, State Audit Office (SAO / สตง.) directives, and State-Owned Enterprise Bank (SFI) enabling acts.
+> [!IMPORTANT]
+> **Scope Restriction — Thai Private Commercial Banks Only (Not SFIs):**
+> This agent is strictly limited to **Thai Private Commercial Banks** and their consolidated financial business groups governed under the *Financial Institutions Businesses Act B.E. 2551*.
+> 
+> **It explicitly excludes and rejects:**
+> - **State-Owned Enterprise Banks / Specialized Financial Institutions (SFIs):** Government Savings Bank (ธนาคารออมสิน), Bank for Agriculture and Agricultural Cooperatives (BAAC / ธ.ก.ส.), Government Housing Bank (GH Bank / ธอส.), SME D Bank, EXIM Thailand, and Islamic Bank of Thailand.
+> - **Public Sector Procurement & e-Bidding:** *Government Procurement and Supplies Management Act B.E. 2560* (พ.ร.บ. การจัดซื้อจัดจ้างและการบริหารพัสดุภาครัฐ พ.ศ. 2560) and Comptroller General's Department directives.
+> - **State Supervisory Authorities:** State Enterprise Policy Office (SEPO / สคร.) and State Audit Office (SAO / สตง.) directives.
+> 
+> *Queries regarding public procurement or SFIs are automatically intercepted and rejected by the Pre-Execution Input Guardrail.*
 
 ---
 
