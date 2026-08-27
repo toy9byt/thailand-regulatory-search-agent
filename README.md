@@ -18,6 +18,13 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 
 ## 1. System Architecture
 
+<p align="center">
+  <img src="docs/images/system_architecture.png" alt="Thailand Private Banking Regulatory Search Agent End-to-End Architecture" width="100%" />
+</p>
+
+<details>
+<summary><b>🔍 View Mermaid.js Text Definition</b></summary>
+
 ```mermaid
 flowchart TD
     subgraph L1["1. Ingress & Security Guardrails Layer"]
@@ -88,6 +95,7 @@ flowchart TD
         OG --> Output["Actionable Enterprise GRC Report & Redlines"]
     end
 ```
+</details>
 
 ---
 
