@@ -275,7 +275,70 @@ uv run python eval/eval_runner.py
 
 ---
 
-## 6. Security, Confidentiality & Compliance Guardrails
+---
+
+## 6. Infrastructure Provisioning & Deployment Guide (Terraform & Agent CLI)
+
+The agent platform supports automated, production-grade deployment across Google Cloud using either **Infrastructure as Code (Terraform)** or the **Google Agents CLI (`agents-cli`)**.
+
+### Option A: Infrastructure as Code Provisioning via Terraform
+
+All necessary cloud infrastructure (Cloud Run, Secret Manager, Cloud Trace, IAM roles, and Service Accounts) is declared under `infra/terraform/`.
+
+```bash
+# 1. Navigate to the Terraform directory
+cd infra/terraform
+
+# 2. Authenticate with Google Cloud
+gcloud auth application-default login
+gcloud config set project YOUR_PROJECT_ID
+
+# 3. Initialize Terraform provider and modules
+terraform init
+
+# 4. Review the execution plan
+terraform plan -var="project_id=YOUR_PROJECT_ID" -var="region=asia-southeast1"
+
+# 5. Provision the infrastructure
+terraform apply -var="project_id=YOUR_PROJECT_ID" -var="region=asia-southeast1" -auto-approve
+```
+
+#### Provisioned Cloud Resources:
+* **Google Cloud Run v2 Service (`thailand-regulatory-search-agent`):** Auto-scaling (1–10 instances) container runtime in `asia-southeast1` (Bangkok-adjacent).
+* **Google Cloud Secret Manager (`thailand-regulatory-gemini-api-key`):** Enterprise secret store securing the Gemini API key without plaintext exposure.
+* **Service Account & IAM Roles (`sa-thailand-regulatory-agent`):** Least-privilege roles for `roles/secretmanager.secretAccessor` and `roles/cloudtrace.agent`.
+
+---
+
+### Option B: Fast Lifecycle & Provisioning via Google Agents CLI (`agents-cli`)
+
+The repository natively supports the **Google Agent Development Kit (ADK) Agents CLI** for rapid validation, local simulation, and containerized deployment.
+
+```bash
+# 1. Install the Google Agents CLI using uv
+uv tool install google-agents-cli
+# Alternatively: pip install google-agents-cli
+
+# 2. Validate agent scaffolding, schemas, and constitution
+agents-cli scaffold validate .
+
+# 3. Launch local ADK prototype server for interactive verification
+agents-cli run --port 8080
+
+# 4. Provision and deploy directly to Cloud Run
+agents-cli deploy cloud-run \
+  --project YOUR_PROJECT_ID \
+  --region asia-southeast1 \
+  --service-name thailand-regulatory-search-agent \
+  --source .
+
+# 5. Verify live deployed agent health
+curl -f https://thailand-regulatory-search-agent-<hash>-as.a.run.app/healthz
+```
+
+---
+
+## 7. Security, Confidentiality & Compliance Guardrails
 
 - **Zero Hardcoded Secrets:** All credentials are dynamically resolved via Google Cloud Secret Manager or environment variables. No secrets are stored in version control.
 - **Automated PII Scrubbing:** All input payloads and agent traces undergo automated regex and DLP sanitization to mask 13-digit Thai National Identification numbers, banking accounts, and sensitive payment data.
@@ -283,5 +346,5 @@ uv run python eval/eval_runner.py
 - **Statutory Grounding Mandate:** Enforces 100% citation grounding referencing enacted gazette notifications (`[Grounded: ...]`) and excludes unverified media press releases.
 - **Human-in-the-Loop (HITL) Gate:** Intercepts high-stakes actions (such as regulatory breach notifications or policy amendments) and requires explicit officer sign-off before dispatch.
 
-## 7. License
+## 8. License
 Licensed under the [Apache License, Version 2.0](LICENSE).
