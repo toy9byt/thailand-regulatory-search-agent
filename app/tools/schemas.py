@@ -7,7 +7,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-RegulatorType = Literal["BOT", "SEC", "OIC", "PDPC", "AI_GOVERNANCE", "ALL"]
+RegulatorType = Literal["BOT", "SEC", "OIC", "PDPC", "NCSA", "AI_GOVERNANCE", "ALL"]
 EntityType = Literal["PRIVATE_COMMERCIAL_BANK", "FINANCIAL_CONGLOMERATE"]
 LegalCategory = Literal["ACT", "ROYAL_DECREE", "MINISTERIAL_REGULATION", "NOTIFICATION", "CIRCULAR"]
 SeverityLevel = Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]
@@ -23,7 +23,7 @@ class FSIRegulatoryQueryInput(BaseModel):
     topic: str = Field(
         ...,
         min_length=3,
-        max_length=200,
+        max_length=1000,
         description="Specific regulatory topic or technical domain (e.g., 'Cloud Outsourcing', 'IT Risk Management', 'Cross-Border PII Transfer', 'Bancassurance Cyber Resilience')."
     )
     circular_code: str | None = Field(

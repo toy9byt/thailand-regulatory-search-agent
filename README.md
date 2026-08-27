@@ -12,6 +12,7 @@ The agent automates statutory discovery, cross-regulator mandate extraction, and
 3. **Office of Insurance Commission (คปภ. / OIC):** Insurance IT Governance Notification B.E. 2563, Digital Policy Issuance, and Bancassurance electronic sales consent standards.
 4. **Personal Data Protection Commission (สคส. / PDPC):** Personal Data Protection Act (PDPA B.E. 2562) Section 28-29 Cross-Border Cloud Transfers, 72-Hour Data Breach Notifications, and DPO mandates.
 5. **AI Governance & Ethical AI (ธปท. / ETDA AIGC / สคส.):** Bank of Thailand AI/ML Principles (Explainability, Anti-Bias in Credit Scoring, Model Risk Management), ETDA Thailand AI Governance Clinic (AIGC) Guidelines, and PDPA Automated Decision-Making (ADM) safeguards.
+6. **National Cyber Security Agency (สกมช. / NCSA):** Cybersecurity Act B.E. 2562 (Sections 49, 50, 53 & 73) on Critical Information Infrastructure (CII) Data Center baseline standards, 24-hour mandatory cyber threat incident escalation (NCSA & T-B CERT), and annual independent cybersecurity audits.
 
 > [!IMPORTANT]
 > **Scope Restriction — Thai Private Commercial Banks Only (Not SFIs):**
@@ -118,6 +119,7 @@ flowchart TD
 | **Insurance & InsurTech** | **Office of Insurance Commission (OIC / คปภ.)** | • IT Governance Notification B.E. 2563<br>• Digital Bancassurance Sales Guidelines | Electronic policy issuance consent, tablet-based branch sales compliance, digital customer verification. |
 | **Financial Data Privacy** | **Personal Data Protection Commission (PDPC / สคส.)** | • Personal Data Protection Act (PDPA B.E. 2562)<br>• Subordinate Notifications on Sec 28–29 | Cross-border financial cloud data transfers, adequate protection assessments, 72-hour breach escalation protocols. |
 | **AI Governance & Ethical AI** | **Bank of Thailand (BOT), ETDA & PDPC** | • BOT Guidelines on AI/ML in Financial Services<br>• ETDA AI Governance Guidelines for Executives (AIGC)<br>• PDPA Sec 30 (Automated Decision-Making) | Algorithmic credit underwriting explainability (SHAP/feature attribution), anti-bias testing in alternative data scoring, model risk management (MRM) drift controls, consumer AI disclosure, and right-to-human-review objection workflows. |
+| **CII & Data Centers** | **National Cyber Security Agency (NCSA / สกมช.)** | • Cybersecurity Act B.E. 2562 (Sec 49, 50, 53, 73)<br>• NCSA Notification on CII Baseline Standards B.E. 2564 | Data Center physical and environmental resilience (dual-power, biometric access, CCTV >= 90 days), mandatory 24-hour incident notification to NCSA and T-B CERT, and annual third-party independent cybersecurity audit submission. |
 
 ---
 
@@ -195,6 +197,7 @@ flowchart TD
 │   │   ├── ai_agent.py          # AI Governance Specialist (BOT AI/ML, ETDA AIGC)
 │   │   ├── bot_agent.py         # Bank of Thailand (BOT) Specialist
 │   │   ├── grc_agent.py         # Enterprise GRC Synthesizer Sub-Agent
+│   │   ├── ncsa_agent.py        # NCSA Cybersecurity Act & Data Center CII Specialist
 │   │   ├── oic_agent.py         # Office of Insurance Commission (OIC) Specialist
 │   │   ├── pdpa_agent.py        # PDPC Data Privacy Specialist
 │   │   └── sec_agent.py         # Securities & Exchange Commission (SEC) Specialist
@@ -204,6 +207,7 @@ flowchart TD
 │       ├── bot_tools.py         # BOT IT Risk (สนส. 12/2563) & Payments Tools
 │       ├── error_handler.py     # Guided Error Handling & Recovery Instructors
 │       ├── grc_tools.py         # CO-REG-TH Control Synthesis Tools
+│       ├── ncsa_tools.py        # NCSA Cybersecurity Act & Data Center CII Tools
 │       ├── oic_tools.py         # OIC IT Governance & InsurTech Tools
 │       ├── pdpa_tools.py        # PDPA Cross-Border Transfer Tools
 │       ├── schemas.py           # Strict Pydantic v2 Input/Output Schemas

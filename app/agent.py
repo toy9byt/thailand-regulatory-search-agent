@@ -12,6 +12,7 @@ from .router import ModelRouter
 from .subagents.ai_agent import AiGovernanceAgent
 from .subagents.bot_agent import BotBankingAgent
 from .subagents.grc_agent import GrcSynthesizerAgent
+from .subagents.ncsa_agent import NcsaCyberAgent
 from .subagents.oic_agent import OicInsuranceAgent
 from .subagents.pdpa_agent import PdpaComplianceAgent
 from .subagents.sec_agent import SecMarketAgent
@@ -33,6 +34,7 @@ class RegulatoryCoordinatorAgent:
         self.oic_agent = OicInsuranceAgent()
         self.pdpa_agent = PdpaComplianceAgent()
         self.ai_agent = AiGovernanceAgent()
+        self.ncsa_agent = NcsaCyberAgent()
         self.grc_agent = GrcSynthesizerAgent()
 
     def handle_compliance_inquiry(
@@ -104,9 +106,18 @@ class RegulatoryCoordinatorAgent:
             "ai", "machine learning", "genai", "llm", "credit scoring", "algorithm",
             "ปัญญาประดิษฐ์", "model risk", "drift", "explainability", "etda", "aigc"
         ]):
-            ai_res = self.ai_agent.process_query(topic=user_prompt)
+            ai_res = self.ai_agent.process_query(topic=clean_prompt)
             if ai_res.get("status") == "SUCCESS":
                 collected_obligations.extend(ai_res.get("matched_obligations", []))
+
+        # Route to NCSA Cybersecurity Act Agent (CII & Data Centers)
+        if any(w in prompt_lower for w in [
+            "cyber", "ไซเบอร์", "ncsa", "สกมช", "cii", "data center",
+            "ศูนย์ข้อมูล", "ดาต้าเซ็นเตอร์", "colocation", "t-b cert", "incident notification"
+        ]):
+            ncsa_res = self.ncsa_agent.process_query(topic=clean_prompt)
+            if ncsa_res.get("status") == "SUCCESS":
+                collected_obligations.extend(ncsa_res.get("matched_obligations", []))
 
         # Default fallback to BOT + PDPA if broad cloud inquiry
         if not collected_obligations:
