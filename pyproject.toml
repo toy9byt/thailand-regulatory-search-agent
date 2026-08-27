@@ -1,0 +1,41 @@
+[project]
+name = "thailand-regulatory-search-agent"
+version = "1.0.0"
+description = "Autonomous Multi-Agent Regulatory Search & Compliance Architecture for Thailand Private Commercial Banks (BOT, SEC, OIC, PDPA)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Thailand FSI AI Engineering" }
+]
+dependencies = [
+    "google-genai>=0.1.1",
+    "pydantic>=2.6.0",
+    "opentelemetry-api>=1.22.0",
+    "opentelemetry-sdk>=1.22.0",
+    "python-json-logger>=2.0.7",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["eval", "tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

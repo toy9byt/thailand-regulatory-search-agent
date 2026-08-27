@@ -1,0 +1,41 @@
+name: CI & AgentOps Evaluation Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv and Dependencies
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          export PATH="$HOME/.cargo/bin:$PATH"
+          uv sync --extra dev
+
+      - name: Code Quality & Linting (Ruff)
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          uv run ruff check .
+
+      - name: Run Pytest Integration Suite
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          uv run pytest eval/test_agent_eval.py -v
+
+      - name: Execute Golden Regulatory Evaluation Suite
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          uv run python eval/eval_runner.py
