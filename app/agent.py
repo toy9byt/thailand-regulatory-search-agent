@@ -52,8 +52,12 @@ class RegulatoryCoordinatorAgent:
         Returns:
             Dictionary containing compliance verdict, synthesized GRC matrix, and audit trace.
         """
-        # 1. Pre-execution Security & SFI Scope Guardrail
-        is_valid, error_code, rejection_reason = InputGuardrail.validate_input(user_prompt)
+        # 1. Ingress PII Sanitization (Zero-Trust Inbound Scrubber)
+        from .observability import PIIRedactionScrubber
+        clean_prompt = PIIRedactionScrubber.redact(user_prompt)
+
+        # 2. Pre-execution Security & SFI Scope Guardrail
+        is_valid, error_code, rejection_reason = InputGuardrail.validate_input(clean_prompt)
         if not is_valid:
             return {
                 "status": "REJECTED_BY_GUARDRAIL",
@@ -69,7 +73,7 @@ class RegulatoryCoordinatorAgent:
         # 3. Parallel/Sequential Sub-Agent Inquiries
         collected_obligations: list[dict[str, Any]] = []
 
-        prompt_lower = user_prompt.lower()
+        prompt_lower = clean_prompt.lower()
 
         # Route to BOT Agent
         if any(w in prompt_lower for w in ["bank", "cloud", "it risk", "outsourcing", "payment", "ธปท", "สนส"]):
@@ -114,14 +118,14 @@ class RegulatoryCoordinatorAgent:
         # 4. GRC Synthesis using Deep Reasoning Tier
         grc_synthesis = self.grc_agent.synthesize(
             collected_obligations=collected_obligations,
-            workload=user_prompt[:100]
+            workload=clean_prompt[:100]
         )
 
         # 5. Check Human-in-the-Loop Gate
         if any(o.get("severity") == "CRITICAL" for o in collected_obligations if isinstance(o, dict)):
             hitl_eval = HumanInTheLoopHook.evaluate_action(
                 action_name="COMMIT_POLICY_AMENDMENT_BOARD",
-                parameters={"workload": user_prompt, "obligations_count": len(collected_obligations)},
+                parameters={"workload": clean_prompt, "obligations_count": len(collected_obligations)},
                 confirmed_by_user=confirmed_by_user
             )
             if hitl_eval["status"] == "AWAITING_HUMAN_CONFIRMATION":
